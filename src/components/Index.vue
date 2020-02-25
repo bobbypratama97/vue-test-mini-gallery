@@ -12,11 +12,18 @@
     </div>
 
     <button @click="add()">Insert</button>
-
-    <div>
-      <ul>
-        <li v-for="g in gallery" v-bind:key="g.id">{{g.url}}</li>
-      </ul>
+    <div class="carousel-view">
+      <transition-group class="carousel" tag="div">
+        <div v-for="g in gallery" class="gallery" :key="g.id">
+          <div>
+            <img v-bind:src="g.url" alt width="200" height="200" />
+          </div>
+        </div>
+      </transition-group>
+      <div class="carousel-controls">
+        <button class="carousel-controls__button" @click="previous">prev</button>
+        <button class="carousel-controls__button" @click="next">next</button>
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +49,49 @@ export default {
         url: this.url
       };
       this.gallery.push(obj);
+    },
+    next() {
+      const first = this.gallery.shift();
+      this.gallery = this.gallery.concat(first);
+    },
+    previous() {
+      const last = this.gallery.pop();
+      this.gallery = [last].concat(this.gallery);
     }
   }
 };
 </script>
+
+<style>
+.carousel-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  width: 24em;
+  min-height: 25em;
+}
+.gallery {
+  flex: 0 0 20em;
+  height: 20em;
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 0.1em dashed #000;
+  border-radius: 50%; */
+  transition: transform 0.3s ease-in-out;
+}
+.gallery:first-of-type {
+  opacity: 0;
+}
+.gallery:last-of-type {
+  opacity: 0;
+}
+</style>

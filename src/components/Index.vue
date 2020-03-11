@@ -25,9 +25,11 @@
         <transition-group class="carousel" tag="div">
           <div v-for="g in gallery" class="gallery" :key="g.id">
             <div>
-              <img v-bind:src="g.url" alt width="200" height="200" />
+              <img v-bind:src="g.url" alt width="800" height="600" />
+              <div>
+                <h4>{{g.description}}</h4>
+              </div>
             </div>
-            <h4>{{g.description}}</h4>
           </div>
         </transition-group>
         <div class="carousel-controls">
@@ -99,12 +101,13 @@ export default {
   align-items: center;
   overflow: hidden;
 
-  width: 24em;
-  min-height: 25em;
+  width: 1280px;
+  min-height: 720px;
 }
 .gallery {
-  flex: 0 0 20em;
-  height: 20em;
+  /* flex: 0 0 20em; */
+  width: 1280px;
+  height: 720px;
   margin: 1em;
   display: flex;
   justify-content: center;
@@ -122,6 +125,7 @@ export default {
 
 .image {
   float: left;
+  text-align: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

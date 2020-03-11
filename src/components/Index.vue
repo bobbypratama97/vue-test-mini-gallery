@@ -42,6 +42,7 @@
       v-for="g in gallery"
       :key="g"
       class="image"
+      @click="showImage(g.url)"
       :style="{backgroundImage: 'url(' + g.url + ')', width: '300px', height: '200px',textAlign:'center'}"
     ></div>
     <!-- </div> -->
@@ -84,6 +85,9 @@ export default {
     previous() {
       const last = this.gallery.pop();
       this.gallery = [last].concat(this.gallery);
+    },
+    showImage(url) {
+      this.url = url;
     }
   }
 };

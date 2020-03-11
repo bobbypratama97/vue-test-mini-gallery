@@ -1,30 +1,48 @@
 <template>
   <div id="index">
     <h1>Mini Gallery Kompas</h1>
-    <div>
-      <input type="text" v-model="title" style="margin-bottom:5px" placeholder="Title" />
-    </div>
-    <div>
-      <input type="text" v-model="description" style="margin-bottom:5px" placeholder="Description" />
-    </div>
-    <div>
-      <input type="text" v-model="url" style="margin-bottom:5px" placeholder="Url" />
+    <div class="formInput">
+      <div>
+        <input type="text" v-model="title" style="margin-bottom:5px" placeholder="Title" />
+      </div>
+      <div>
+        <input
+          type="text"
+          v-model="description"
+          style="margin-bottom:5px"
+          placeholder="Description"
+        />
+      </div>
+      <div>
+        <input type="text" v-model="url" style="margin-bottom:5px" placeholder="Url" />
+      </div>
+
+      <button @click="add()">Insert</button>
     </div>
 
-    <button @click="add()">Insert</button>
-    <div class="carousel-view">
-      <transition-group class="carousel" tag="div">
-        <div v-for="g in gallery" class="gallery" :key="g.id">
-          <div>
-            <img v-bind:src="g.url" alt width="200" height="200" />
+    <div class="mainGallery">
+      <div class="carousel-view">
+        <transition-group class="carousel" tag="div">
+          <div v-for="g in gallery" class="gallery" :key="g.id">
+            <div>
+              <img v-bind:src="g.url" alt width="200" height="200" />
+            </div>
+            <h4>{{g.description}}</h4>
           </div>
+        </transition-group>
+        <div class="carousel-controls">
+          <button class="carousel-controls__button" @click="previous">prev</button>
+          <button class="carousel-controls__button" @click="next">next</button>
         </div>
-      </transition-group>
-      <div class="carousel-controls">
-        <button class="carousel-controls__button" @click="previous">prev</button>
-        <button class="carousel-controls__button" @click="next">next</button>
       </div>
     </div>
+    <div
+      v-for="g in gallery"
+      :key="g"
+      class="image"
+      :style="{backgroundImage: 'url(' + g.url + ')', width: '300px', height: '200px',textAlign:'center'}"
+    ></div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -37,7 +55,14 @@ export default {
       title: "",
       description: "",
       url: "",
-      gallery: []
+      gallery: [],
+      test: [
+        "https://dummyimage.com/800/ffffff/000000",
+        "https://dummyimage.com/1600/ffffff/000000",
+        "https://dummyimage.com/1280/000000/ffffff",
+        "https://dummyimage.com/400/000000/ffffff"
+      ],
+      index: null
     };
   },
   methods: {
@@ -45,7 +70,7 @@ export default {
       var obj = {
         id: this.id++,
         title: this.title,
-        deskripsi: this.deskripsi,
+        description: this.description,
         url: this.url
       };
       this.gallery.push(obj);
@@ -93,5 +118,14 @@ export default {
 }
 .gallery:last-of-type {
   opacity: 0;
+}
+
+.image {
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
 }
 </style>

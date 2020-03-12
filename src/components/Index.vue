@@ -40,9 +40,9 @@
     </div>
     <div
       v-for="g in gallery"
-      :key="g"
+      :key="g.id"
       class="image"
-      @click="showImage(g.url)"
+      @click="showImage(g.id,g.url,g.description)"
       :style="{backgroundImage: 'url(' + g.url + ')', width: '300px', height: '200px',textAlign:'center'}"
     ></div>
     <!-- </div> -->
@@ -59,12 +59,8 @@ export default {
       description: "",
       url: "",
       gallery: [],
-      test: [
-        "https://dummyimage.com/800/ffffff/000000",
-        "https://dummyimage.com/1600/ffffff/000000",
-        "https://dummyimage.com/1280/000000/ffffff",
-        "https://dummyimage.com/400/000000/ffffff"
-      ],
+      show: false,
+      temp: [],
       index: null
     };
   },
@@ -85,10 +81,16 @@ export default {
     previous() {
       const last = this.gallery.pop();
       this.gallery = [last].concat(this.gallery);
-    },
-    showImage(url) {
-      this.url = url;
     }
+    // showImage(id, url, description) {
+    //   var obj = {
+    //     id: id,
+    //     url: url,
+    //     description: description
+    //   };
+    //   this.temp.push(obj);
+    //   this.show = true;
+    // }
   }
 };
 </script>
